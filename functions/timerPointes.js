@@ -24,15 +24,35 @@ function msCount() {
     }, 100);
 };
 
+// async function getIndexSessionData(data) {
+//     let i = data.length - 1;
+//     while (i >= 0) {
+//         if (data[i].hasOwnProperty("startDate")) {
+//             break;
+//         }
+//         i--;
+//     }
+//     return i;
+// };
+
+findlastIndex = null;
+lastTimestamp = null;
+let indexI = null;
 async function getIndexSessionData(data) {
-    let i = data.length - 1;
-    while (i >= 0) {
+    // let i = data.length - 1;
+    while (i < data.length) {
         if (data[i].hasOwnProperty("startDate")) {
-            break;
+            findlastIndex = (data[i].createdAt);
+            if (lastTimestamp == null) {
+                lastTimestamp = findlastIndex;
+            } else if (findlastIndex > lastTimestamp) {
+                findlastIndex = lastTimestamp;
+                indexI = i;
+            }
+            i--;
         }
-        i--;
-    }
-    return i;
+        return indexI;
+    };
 };
 
 function dayDate() {
